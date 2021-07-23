@@ -73,7 +73,7 @@ function Pomodoro() {
       }
       return setSession(nextTick);
     },
-    isTimerRunning ? 1000 : null
+    isTimerRunning ? 10 : null
   );
 
   /**
@@ -224,7 +224,7 @@ function Pomodoro() {
           </div>
         </div>
       </div>
-      <Session session={session} />
+      <Session session={session} focusDuration={focusDuration} breakDuration={breakDuration}/>
     </div>
   );
 }
