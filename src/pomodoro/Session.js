@@ -1,7 +1,11 @@
 import React from "react";
 import { minutesToDuration, secondsToDuration } from "../utils/duration";
+import ProgressBar from "./ProgressBar";
+
 
 function Session({ session, breakDuration, focusDuration }) {
+    const duration = session?.label === "Focusing" ? focusDuration: breakDuration;
+    const totalTime = duration * 60;
   return (
     session && (
       <div>
@@ -20,16 +24,7 @@ function Session({ session, breakDuration, focusDuration }) {
         </div>
         <div className="row mb-2">
           <div className="col">
-            <div className="progress" style={{ height: "20px" }}>
-              <div
-                className="progress-bar"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="100"
-                aria-valuenow="0" // TODO: Increase aria-valuenow as elapsed time increases
-                style={{ width: "0%" }} // TODO: Increase width % as elapsed time increases
-              />
-            </div>
+           <ProgressBar currentTime={Math.abs(session.timeRemaining - totalTime)} totalTime={totalTime}/>
           </div>
         </div>
       </div>
