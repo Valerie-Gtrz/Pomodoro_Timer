@@ -3,7 +3,6 @@ import classNames from "../utils/class-names";
 import useInterval from "../utils/useInterval";
 import { minutesToDuration } from "../utils/duration";
 import Session from "./Session";
-import Focus from "./Focus"
 
 // These functions are defined outside of the component to insure they do not have access to state
 // and are, therefore more likely to be pure.
@@ -74,7 +73,7 @@ function Pomodoro() {
       }
       return setSession(nextTick);
     },
-    isTimerRunning ? 10 : null
+    isTimerRunning ? 1000 : null
   );
 
   /**
@@ -117,86 +116,112 @@ function Pomodoro() {
   const handleBreakDecrease = () =>
     setBreakDuration((currentDuration) => Math.max(1, currentDuration - 1));
 
-  return (
-    <div className="pomodoro">
-      <div className="row">
-        <div className="col">
-         <Focus focusDuration={focusDuration} handleFocusDecrease={handleFocusDecrease} handleFocusIncrease={handleFocusIncrease} session={session}/>
-        </div>
-        <div className="col">
-          <div className="float-right">
+    return (
+      <div className="pomodoro">
+        <div className="row">
+          <div className="col">
             <div className="input-group input-group-lg mb-2">
-              <span className="input-group-text" data-testid="duration-break">
-                {/* DONE! Update this text to display the current break session duration */}
+              <span className="input-group-text" data-testid="duration-focus">
+                {/* DONE? ======TODO: Update this text to display the current focus session duration */}
                 {/*minutesToDuration converts numbers into minutes */}
-                Break Duration: {minutesToDuration(breakDuration)}
+                Focus Duration: {minutesToDuration(focusDuration)}
               </span>
               <div className="input-group-append">
-                {/* DONE! Implement decreasing break duration and disable during a focus or break session*/}
+                {/* DONE? TODO: Implement decreasing focus duration and disable during a focus or break session */}
                 <button
                   type="button"
                   className="btn btn-secondary"
-                  data-testid="decrease-break"
-                  onClick={handleBreakDecrease}
-                  disabled={session}
+                  data-testid="decrease-focus"
+                  onClick={handleFocusDecrease}
+                  disabled={session || focusDuration === 5}
                 >
                   <span className="oi oi-minus" />
                 </button>
-                {/* DONE! Implement increasing break duration and disable during a focus or break session*/}
+                {/*DONE! TODO: Implement increasing focus duration  and disable during a focus or break session */}
                 <button
                   type="button"
                   className="btn btn-secondary"
-                  data-testid="increase-break"
-                  onClick={handleBreakIncrease}
-                  disabled={session}
+                  data-testid="increase-focus"
+                  onClick={handleFocusIncrease}
+                  disabled={session || focusDuration >= 60}
                 >
                   <span className="oi oi-plus" />
                 </button>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col">
-          <div
-            className="btn-group btn-group-lg mb-2"
-            role="group"
-            aria-label="Timer controls"
-          >
-            <button
-              type="button"
-              className="btn btn-primary"
-              data-testid="play-pause"
-              title="Start or pause timer"
-              onClick={playPause}
-            >
-              <span
-                className={classNames({
-                  oi: true,
-                  "oi-media-play": !isTimerRunning,
-                  "oi-media-pause": isTimerRunning,
-                })}
-              />
-            </button>
-
-            {/* DONE! TODO: Disable the stop button when there is no active session */}
-            <button
-              type="button"
-              className="btn btn-secondary"
-              data-testid="stop"
-              title="Stop the session"
-              onClick={stop}
-              disabled={!session}
-            >
-              <span className="oi oi-media-stop" />
-            </button>
+          <div className="col">
+            <div className="float-right">
+              <div className="input-group input-group-lg mb-2">
+                <span className="input-group-text" data-testid="duration-break">
+                  {/* DONE! Update this text to display the current break session duration */}
+                  {/*minutesToDuration converts numbers into minutes */}
+                  Break Duration: {minutesToDuration(breakDuration)}
+                </span>
+                <div className="input-group-append">
+                  {/* DONE! Implement decreasing break duration and disable during a focus or break session*/}
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    data-testid="decrease-break"
+                    onClick={handleBreakDecrease}
+                    disabled={session}
+                  >
+                    <span className="oi oi-minus" />
+                  </button>
+                  {/* DONE! Implement increasing break duration and disable during a focus or break session*/}
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    data-testid="increase-break"
+                    onClick={handleBreakIncrease}
+                    disabled={session}
+                  >
+                    <span className="oi oi-plus" />
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+        <div className="row">
+          <div className="col">
+            <div
+              className="btn-group btn-group-lg mb-2"
+              role="group"
+              aria-label="Timer controls"
+            >
+              <button
+                type="button"
+                className="btn btn-primary"
+                data-testid="play-pause"
+                title="Start or pause timer"
+                onClick={playPause}
+              >
+                <span
+                  className={classNames({
+                    oi: true,
+                    "oi-media-play": !isTimerRunning,
+                    "oi-media-pause": isTimerRunning,
+                  })}
+                />
+              </button>
+              {/* DONE! TODO: Disable the stop button when there is no active session */}
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-testid="stop"
+                title="Stop the session"
+                onClick={stop}
+                disabled={!session}
+              >
+                <span className="oi oi-media-stop" />
+              </button>
+            </div>
+          </div>
+        </div>
+        <Session session={session} focusDuration={focusDuration} breakDuration={breakDuration}/>
       </div>
-      <Session session={session} focusDuration={focusDuration} breakDuration={breakDuration}/>
-    </div>
-  );
-}
-
-export default Pomodoro;
+    );
+  }
+  export default Pomodoro;

@@ -14,7 +14,7 @@ function Session({ session, breakDuration, focusDuration }) {
           <div className="col">
             {/* DONE! Update message below to include current session (Focusing or On Break) total duration */}
             <h2 data-testid="session-title">
-              {session.label} for {session.label === "Focusing" ? minutesToDuration(focusDuration): minutesToDuration(breakDuration)}
+              {session.label} for {session.label === "Focusing" ? minutesToDuration(focusDuration): minutesToDuration(breakDuration)} minutes
             </h2>
             {/* DONE! Update message below correctly format the time remaining in the current session */}
             <p className="lead" data-testid="session-sub-title">
