@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import classNames from "../utils/class-names";
 import useInterval from "../utils/useInterval";
 import { minutesToDuration } from "../utils/duration";
+import Session from "./Session";
 
 // These functions are defined outside of the component to insure they do not have access to state
 // and are, therefore more likely to be pure.
@@ -79,11 +80,6 @@ function Pomodoro() {
    * Called whenever the play/pause button is clicked.
    */
   function playPause() {
-
-    
-
-
-
     setIsTimerRunning((prevState) => {
       const nextState = !prevState;
       if (nextState) {
@@ -100,6 +96,14 @@ function Pomodoro() {
         });
       }
       return nextState;
+    });
+  }
+
+  /* stops timer from running and ends session setSession=null */
+  function stop() {
+    setIsTimerRunning(() => {
+      setSession(null);
+      return false;
     });
   }
 
@@ -154,7 +158,7 @@ function Pomodoro() {
             <div className="input-group input-group-lg mb-2">
               <span className="input-group-text" data-testid="duration-break">
                 {/* DONE! Update this text to display the current break session duration */}
-                 {/*minutesToDuration converts numbers into minutes */}
+                {/*minutesToDuration converts numbers into minutes */}
                 Break Duration: {minutesToDuration(breakDuration)}
               </span>
               <div className="input-group-append">
@@ -175,7 +179,6 @@ function Pomodoro() {
                   data-testid="increase-break"
                   onClick={handleBreakIncrease}
                   disabled={session}
-            
                 >
                   <span className="oi oi-plus" />
                 </button>
@@ -206,14 +209,14 @@ function Pomodoro() {
                 })}
               />
             </button>
-            
+
             {/* DONE! TODO: Disable the stop button when there is no active session */}
             <button
               type="button"
               className="btn btn-secondary"
               data-testid="stop"
               title="Stop the session"
-              
+              onClick={stop}
               disabled={!session}
             >
               <span className="oi oi-media-stop" />
@@ -221,35 +224,7 @@ function Pomodoro() {
           </div>
         </div>
       </div>
-      <div>
-        {/* TODO: This area should show only when there is an active focus or break - i.e. the session is running or is paused */}
-        <div className="row mb-2">
-          <div className="col">
-            {/* TODO: Update message below to include current session (Focusing or On Break) total duration */}
-            <h2 data-testid="session-title">
-              {session?.label} for 25:00 minutes
-            </h2>
-            {/* TODO: Update message below correctly format the time remaining in the current session */}
-            <p className="lead" data-testid="session-sub-title">
-              {session?.timeRemaining} remaining
-            </p>
-          </div>
-        </div>
-        <div className="row mb-2">
-          <div className="col">
-            <div className="progress" style={{ height: "20px" }}>
-              <div
-                className="progress-bar"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="100"
-                aria-valuenow="0" // TODO: Increase aria-valuenow as elapsed time increases
-                style={{ width: "0%" }} // TODO: Increase width % as elapsed time increases
-              />
-            </div>
-          </div>
-        </div>
-      </div>
+      <Session session={session} />
     </div>
   );
 }
