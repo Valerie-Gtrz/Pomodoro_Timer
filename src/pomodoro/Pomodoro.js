@@ -3,6 +3,7 @@ import classNames from "../utils/class-names";
 import useInterval from "../utils/useInterval";
 import { minutesToDuration } from "../utils/duration";
 import Session from "./Session";
+import Focus from "./Focus"
 
 // These functions are defined outside of the component to insure they do not have access to state
 // and are, therefore more likely to be pure.
@@ -109,13 +110,10 @@ function Pomodoro() {
 
   const handleFocusIncrease = () =>
     setFocusDuration((currentDuration) => Math.min(60, currentDuration + 5));
-
   const handleFocusDecrease = () =>
     setFocusDuration((currentDuration) => Math.max(5, currentDuration - 5));
-
   const handleBreakIncrease = () =>
     setBreakDuration((currentDuration) => Math.min(15, currentDuration + 1));
-
   const handleBreakDecrease = () =>
     setBreakDuration((currentDuration) => Math.max(1, currentDuration - 1));
 
@@ -123,35 +121,7 @@ function Pomodoro() {
     <div className="pomodoro">
       <div className="row">
         <div className="col">
-          <div className="input-group input-group-lg mb-2">
-            <span className="input-group-text" data-testid="duration-focus">
-              {/* DONE? ======TODO: Update this text to display the current focus session duration */}
-              {/*minutesToDuration converts numbers into minutes */}
-              Focus Duration: {minutesToDuration(focusDuration)}
-            </span>
-            <div className="input-group-append">
-              {/* DONE? TODO: Implement decreasing focus duration and disable during a focus or break session */}
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-testid="decrease-focus"
-                onClick={handleFocusDecrease}
-                disabled={session || focusDuration === 5}
-              >
-                <span className="oi oi-minus" />
-              </button>
-              {/*DONE! TODO: Implement increasing focus duration  and disable during a focus or break session */}
-              <button
-                type="button"
-                className="btn btn-secondary"
-                data-testid="increase-focus"
-                onClick={handleFocusIncrease}
-                disabled={session || focusDuration >= 60}
-              >
-                <span className="oi oi-plus" />
-              </button>
-            </div>
-          </div>
+         <Focus focusDuration={focusDuration} handleFocusDecrease={handleFocusDecrease} handleFocusIncrease={handleFocusIncrease} session={session}/>
         </div>
         <div className="col">
           <div className="float-right">

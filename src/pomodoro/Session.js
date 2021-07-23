@@ -12,11 +12,11 @@ function Session({ session, breakDuration, focusDuration }) {
         {/* DONE! This area should show only when there is an active focus or break - i.e. the session is running or is paused */}
         <div className="row mb-2">
           <div className="col">
-            {/* TODO: Update message below to include current session (Focusing or On Break) total duration */}
+            {/* DONE! Update message below to include current session (Focusing or On Break) total duration */}
             <h2 data-testid="session-title">
               {session.label} for {session.label === "Focusing" ? minutesToDuration(focusDuration): minutesToDuration(breakDuration)}
             </h2>
-            {/* TODO: Update message below correctly format the time remaining in the current session */}
+            {/* DONE! Update message below correctly format the time remaining in the current session */}
             <p className="lead" data-testid="session-sub-title">
               {secondsToDuration(session.timeRemaining)} remaining
             </p>
