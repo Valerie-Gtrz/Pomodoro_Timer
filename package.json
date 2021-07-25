@@ -1,5 +1,6 @@
 {
   "name": "pomodoro-timer",
+  "author": "Valerie Gutierrez, Trevor Glasscock, Derek Blauser, Jamie Lake, Norberto Gonzalez",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

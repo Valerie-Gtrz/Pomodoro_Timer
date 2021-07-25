@@ -1,3 +1,27 @@
+body {
+  background-color: rgba(31, 30, 30, 0.699);
+}
+
 .App {
+  color: rgb(50, 230, 215);
   text-align: center;
+}
+
+button.btn.btn-secondary {
+  background-color: rgba(35, 231, 221, 0.788);
+  border: 10px solid rgb(131, 125, 125);
+}
+
+button.btn-primary {
+  color: rgb(7, 216, 199);
+  background-color: gold;
+  border: 10px solid gold;
+}
+
+.input-group-text {
+  background-color: ghostwhite;
+  border: 1px solid ghostwhite;
+}
+.progress-bar {
+  background-color: gold;
 }

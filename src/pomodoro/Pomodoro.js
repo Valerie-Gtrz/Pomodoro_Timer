@@ -107,7 +107,7 @@ function Pomodoro() {
       return false;
     });
   }
-
+  /*DO NOT if statement to bound lower and upper limits of the focus or break duration*/
   const handleFocusIncrease = () =>
     setFocusDuration((currentDuration) => Math.min(60, currentDuration + 5));
   const handleFocusDecrease = () =>
