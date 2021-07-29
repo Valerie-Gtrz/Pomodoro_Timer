@@ -18,5 +18,4 @@ function ProgressBar({ currentTime, totalTime}) {
 }
 
 
-
 export default ProgressBar;
