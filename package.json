@@ -19,6 +19,7 @@
     "docker:test": "docker run -t  thinkful-ed/zid-fe-project-pomodoro-timer-01-qualified npm test",
     "eject": "react-scripts eject",
     "start": "react-scripts start",
+    "prebuild": "env CI=true react-scripts test --colors",
     "start:solution": "npm run -it docker:build && npm run docker:run",
     "test": "react-scripts test",
     "test:solution": "npm run docker:build && npm run docker:test"
